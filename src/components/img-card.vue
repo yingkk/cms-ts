@@ -1,7 +1,7 @@
 <template>
   <div class="img-card">
     <ul id="img" v-show="false">
-      <li v-for="(src, index) in imgs" :key="index">
+      <li v-for="(src, index) in imgs" :key="`img-${index}`">
         <img :src="src" alt="Picture 1" />
       </li>
     </ul>
@@ -13,7 +13,6 @@ import "viewerjs/dist/viewer.css";
 import Viewer from "viewerjs";
 
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { PropType } from "vue";
 
 @Component
 export default class ImgCard extends Vue {
@@ -22,12 +21,22 @@ export default class ImgCard extends Vue {
   //     "https://tse1-mm.cn.bing.net/th?id=OIP.fLI-fIeiAEMZwLhz6KkcMQAAAA&w=201&h=200&c=7&o=5&pid=1.7",
   //   ],
   // })
+  // @Prop({
+  //   type: Array as PropType<string[]>,
+  //   required: true,
+  //   default: () => {
+  //     return [];
+  //   },
+  // })
+  // readonly imgs!: string[];
+
   @Prop({
-    type: Array as PropType<string[]>,
-    required: true,
-    default: () => [],
+    type: Array,
+    default: () => {
+      return [];
+    },
   })
-  private readonly imgs!: string[];
+  imgs!: string[] | undefined;
   viewer!: Viewer;
 
   mounted(): void {
@@ -44,15 +53,12 @@ export default class ImgCard extends Vue {
     });
   }
 
-  handleClick(): void {
-    this.show();
-  }
   show(): void {
     this.viewer.show();
   }
-  hide(): void {
-    this.viewer.hide();
-  }
+  // hide(): void {
+  //   this.viewer.hide();
+  // }
 }
 </script>
 

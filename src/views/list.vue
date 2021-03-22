@@ -186,7 +186,6 @@ export default class List extends Vue {
     this.activeCategory = this.categories[0];
   }
 
-  // methods: {
   loadTop(): void {
     // TODO
     setTimeout(() => {
