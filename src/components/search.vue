@@ -28,7 +28,6 @@ export default class Search extends Vue {
 
   @Watch("searchText")
   searchTextChange(newVal: string): boolean {
-    console.log(newVal);
     return (this.isShowClear = newVal ? true : false);
   }
 

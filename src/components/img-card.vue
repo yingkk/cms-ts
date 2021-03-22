@@ -12,24 +12,10 @@
 import "viewerjs/dist/viewer.css";
 import Viewer from "viewerjs";
 
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 
 @Component
 export default class ImgCard extends Vue {
-  // @Prop({
-  //   default: () => [
-  //     "https://tse1-mm.cn.bing.net/th?id=OIP.fLI-fIeiAEMZwLhz6KkcMQAAAA&w=201&h=200&c=7&o=5&pid=1.7",
-  //   ],
-  // })
-  // @Prop({
-  //   type: Array as PropType<string[]>,
-  //   required: true,
-  //   default: () => {
-  //     return [];
-  //   },
-  // })
-  // readonly imgs!: string[];
-
   @Prop({
     type: Array,
     default: () => {
@@ -38,6 +24,14 @@ export default class ImgCard extends Vue {
   })
   imgs!: string[];
   viewer!: Viewer;
+
+  @Watch("imgs")
+  onImgsChange(newVal: string[]): void {
+    if (!newVal.length) {
+      return;
+    }
+    this.viewer.update();
+  }
 
   mounted(): void {
     this.viewer = new Viewer(document.getElementById("img") as HTMLElement, {
@@ -51,10 +45,6 @@ export default class ImgCard extends Vue {
       },
     });
   }
-  // @Watch("imgs", {deep: true})
-  // onImgsChange(): void {
-  //   this.$forceUpdate();
-  // }
 
   show(): void {
     this.viewer.show();
