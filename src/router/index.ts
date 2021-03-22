@@ -5,11 +5,6 @@ NProgress.configure({
   showSpinner: false
 });
 
-// const originalPush = VueRouter.prototype.push;
-// VueRouter.prototype.push = function push(location: RawLocation): Promise<Route> {
-//   return originalPush.call(this, location).catch((err: any) => err);
-// };
-
 Vue.use(VueRouter)
 const route = [
   // {

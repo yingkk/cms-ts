@@ -36,11 +36,10 @@ export default class ImgCard extends Vue {
       return [];
     },
   })
-  imgs!: string[] | undefined;
+  imgs!: string[];
   viewer!: Viewer;
 
   mounted(): void {
-    console.log(this.imgs);
     this.viewer = new Viewer(document.getElementById("img") as HTMLElement, {
       title: true,
       navbar: false,
@@ -52,13 +51,17 @@ export default class ImgCard extends Vue {
       },
     });
   }
+  // @Watch("imgs", {deep: true})
+  // onImgsChange(): void {
+  //   this.$forceUpdate();
+  // }
 
   show(): void {
     this.viewer.show();
   }
-  // hide(): void {
-  //   this.viewer.hide();
-  // }
+  hide(): void {
+    this.viewer.hide();
+  }
 }
 </script>
 
