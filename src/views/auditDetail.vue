@@ -73,11 +73,19 @@
       <div class="detail-inner-bottom">
         <div class="btns">
           <div class="btns-left">
-            <mt-button type="default" size="small">不通过</mt-button>
+            <mt-button type="default" size="small" @click="handleUnpass"
+              >不通过</mt-button
+            >
           </div>
           <div class="btns-right">
-            <mt-button type="default" size="small">取消</mt-button>
-            <mt-button type="primary" size="small" style="margin-left: 16px"
+            <mt-button type="default" size="small" @click="handleCancel"
+              >取消</mt-button
+            >
+            <mt-button
+              type="primary"
+              size="small"
+              style="margin-left: 16px"
+              @click="handlePass"
               >通过</mt-button
             >
           </div>
@@ -88,73 +96,87 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      selectedId: "",
-      datas: [
-        {
-          id: 1,
-          icon: "1",
-          title: "景德镇窑斗采莲池鸳鸯纹盘1",
-        },
-        {
-          id: 2,
-          icon: "2",
-          title: "景德镇窑斗采莲池鸳鸯纹盘2",
-        },
-        {
-          id: 3,
-          icon: "3",
-          title: "景德镇窑斗采莲池鸳鸯纹盘3",
-        },
-        {
-          id: 4,
-          icon: "4",
-          title: "景德镇窑斗采莲池鸳鸯纹盘4",
-        },
-        {
-          id: 5,
-          icon: "5",
-          title: "景德镇窑斗采莲池鸳鸯纹盘5",
-        },
-        {
-          id: 6,
-          icon: "6",
-          title: "景德镇窑斗采莲池鸳鸯纹盘6",
-        },
-        {
-          id: 7,
-          icon: "7",
-          title: "景德镇窑斗采莲池鸳鸯纹盘7",
-        },
-        {
-          id: 8,
-          icon: "8",
-          title: "景德镇窑斗采莲池鸳鸯纹盘8",
-        },
-        {
-          id: 9,
-          icon: "9",
-          title: "景德镇窑斗采莲池鸳鸯纹盘9",
-        },
-        {
-          id: 10,
-          icon: "10",
-          title: "景德镇窑斗采莲池鸳鸯纹盘10",
-        },
-      ],
-    };
-  },
-  methods: {
-    handleClick(id) {
-      this.selectedId = id;
-      console.log(this.selectedId);
-      this.$router.push({ name: "collectionInfo", query: { id: id } });
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+
+interface AuditInfo {
+  id: string;
+  icon: string;
+  title: string;
+}
+
+@Component
+export default class AuditDetail extends Vue {
+  selectedId = "";
+  auditStatus = "未审核";
+  datas: AuditInfo[] = [
+    {
+      id: "1",
+      icon: "1",
+      title: "景德镇窑斗采莲池鸳鸯纹盘1",
     },
-  },
-};
+    {
+      id: "2",
+      icon: "2",
+      title: "景德镇窑斗采莲池鸳鸯纹盘2",
+    },
+    {
+      id: "3",
+      icon: "3",
+      title: "景德镇窑斗采莲池鸳鸯纹盘3",
+    },
+    {
+      id: "4",
+      icon: "4",
+      title: "景德镇窑斗采莲池鸳鸯纹盘4",
+    },
+    {
+      id: "5",
+      icon: "5",
+      title: "景德镇窑斗采莲池鸳鸯纹盘5",
+    },
+    {
+      id: "6",
+      icon: "6",
+      title: "景德镇窑斗采莲池鸳鸯纹盘6",
+    },
+    {
+      id: "7",
+      icon: "7",
+      title: "景德镇窑斗采莲池鸳鸯纹盘7",
+    },
+    {
+      id: "8",
+      icon: "8",
+      title: "景德镇窑斗采莲池鸳鸯纹盘8",
+    },
+    {
+      id: "9",
+      icon: "9",
+      title: "景德镇窑斗采莲池鸳鸯纹盘9",
+    },
+    {
+      id: "10",
+      icon: "10",
+      title: "景德镇窑斗采莲池鸳鸯纹盘10",
+    },
+  ];
+
+  handleClick(id: string): void {
+    this.selectedId = id;
+    this.$router.push({ name: "collectionInfo", query: { id: id } });
+  }
+
+  handleUnpass(): void {
+    this.auditStatus = "不通过";
+  }
+  handlePass(): void {
+    this.auditStatus = "通过";
+  }
+  handleCancel(): void {
+    this.$router.go(-1);
+  }
+}
 </script>
 
 
@@ -203,7 +225,7 @@ export default {
           margin-top: 0;
         }
       }
-    
+
       .otherinfo {
         width: 100%;
         display: flex;
@@ -247,6 +269,4 @@ export default {
 .mint-button--small {
   padding: 0 20px;
 }
-
-
 </style>

@@ -26,7 +26,7 @@
             <div
               :class="['item', selected.id === item.id ? 'active' : '']"
               v-for="(item, index) in datas"
-              :key="index"
+              :key="`attach-${index}`"
               @click="handleClick(item)"
             >
               <div class="item-icon">
@@ -35,7 +35,9 @@
               <div class="item-content">
                 <div class="item-content-inner">
                   <div class="item-content-left">
-                    <span class="item-content-title reset-width">{{ item.title }}</span>
+                    <span class="item-content-title reset-width">{{
+                      item.title
+                    }}</span>
                     <span class="item-content-des reset-width">2021/02/24</span>
                   </div>
                 </div>
@@ -52,28 +54,28 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import imageCard from "@/components/img-card.vue";
+import ImageCard from "@/components/img-card.vue";
 
-interface dataTypeInf {
-  id?: number;
+interface DataTypeInf {
+  id?: string;
   icon?: string;
   title?: string;
-  imgs?: Array<string>;
+  imgs?: string[];
 }
 
 @Component({
   components: {
-    imageCard,
+    ImageCard
   },
 })
 export default class CollectionInfo extends Vue {
   $refs!: {
-    imageCard: imageCard;
+    imageCard: ImageCard;
   };
-  selected: dataTypeInf = {};
-  datas: Array<dataTypeInf> = [
+  selected: DataTypeInf = {};
+  datas: Array<DataTypeInf> = [
     {
-      id: 1,
+      id: "1",
       icon: "1",
       title: "正面-景德镇窑斗采莲池鸳鸯纹盘1",
       imgs: [
@@ -81,7 +83,7 @@ export default class CollectionInfo extends Vue {
       ],
     },
     {
-      id: 2,
+      id: "2",
       icon: "2",
       title: "背面-景德镇窑斗采莲池鸳鸯纹盘2",
       imgs: [
@@ -89,7 +91,7 @@ export default class CollectionInfo extends Vue {
       ],
     },
     {
-      id: 3,
+      id: "3",
       icon: "3",
       title: "景德镇窑斗采莲池鸳鸯纹盘3",
       imgs: [
@@ -97,7 +99,7 @@ export default class CollectionInfo extends Vue {
       ],
     },
     {
-      id: 4,
+      id: "4",
       icon: "4",
       title: "鉴定报告-景德镇窑斗采莲池鸳鸯纹盘4",
       imgs: [
@@ -105,7 +107,7 @@ export default class CollectionInfo extends Vue {
       ],
     },
     {
-      id: 5,
+      id: "5",
       icon: "5",
       title: "景德镇窑斗采莲池鸳鸯纹盘5",
       imgs: [
@@ -113,7 +115,7 @@ export default class CollectionInfo extends Vue {
       ],
     },
     {
-      id: 6,
+      id: "6",
       icon: "6",
       title: "景德镇窑斗采莲池鸳鸯纹盘6",
       imgs: [
@@ -121,7 +123,7 @@ export default class CollectionInfo extends Vue {
       ],
     },
     {
-      id: 7,
+      id: "7",
       icon: "7",
       title: "景德镇窑斗采莲池鸳鸯纹盘7",
       imgs: [
@@ -129,14 +131,14 @@ export default class CollectionInfo extends Vue {
       ],
     },
   ];
-  handleClick(item: dataTypeInf): void {
+  handleClick(item: DataTypeInf): void {
     this.selected = item;
     this.$refs.imageCard.show();
   }
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .attach-detail {
   position: absolute;
   left: 0;

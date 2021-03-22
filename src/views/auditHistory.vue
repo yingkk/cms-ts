@@ -40,116 +40,129 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
 import search from "@/components/search.vue";
-export default {
-  data() {
-    return {
-      allLoaded: false,
-      selectedId: "",
-      searchText: "",
-      datas: [
-        {
-          id: 1,
-          icon: "1",
-          title: "入藏申请1",
-          status: "1",
-        },
-        {
-          id: 2,
-          icon: "2",
-          title: "入藏申请2",
-          status: "1",
-        },
-        {
-          id: 3,
-          icon: "3",
-          title: "入藏申请3",
-          status: "1",
-        },
-        {
-          id: 4,
-          icon: "4",
-          title: "入藏申请4",
-          status: "1",
-        },
-        {
-          id: 5,
-          icon: "5",
-          title: "入藏申请5",
-          status: "1",
-        },
-        {
-          id: 6,
-          icon: "6",
-          title: "入藏申请6",
-          status: "1",
-        },
-        {
-          id: 7,
-          icon: "7",
-          title: "入藏申请7",
-          status: "1",
-        },
-        {
-          id: 8,
-          icon: "8",
-          title: "入藏申请8",
-          status: "1",
-        },
-        {
-          id: 9,
-          icon: "9",
-          title: "入藏申请9",
-          status: "1",
-        },
-        {
-          id: 10,
-          icon: "10",
-          title: "入藏申请10",
-          status: "1",
-        },
-      ],
-    };
-  },
-  methods: {
-    handleBarClick() {
-      this.isShowDrawer = !this.isShowDrawer;
-    },
-    handleTextChange(data) {
-      console.log(data);
-    },
-    loadTop() {
-      // TODO
-      setTimeout(() => {
-        this.$refs.loadmore.onTopLoaded();
-      }, 2000);
-    },
-    loadMore() {
-      this.allLoaded = true;
-      setTimeout(() => {
-        let last = this.datas[this.datas.length - 1];
-        for (let i = 1; i <= 10; i++) {
-          this.datas.push({
-            id: last.id + i,
-            icon: last.id + i,
-            title: "入藏申请" + (last.id + i),
-            status: "0",
-          });
-        }
-        this.allLoaded = false; //this.allLoaded = true; 若数据已全部获取完毕
-        this.$refs.loadmore.onBottomLoaded();
-      }, 2500);
-    },
-    handleClick(id) {
-      this.selectedId = id;
-      this.$router.push({ name: "auditDetail", query: { id: id } });
-    },
-  },
+import LoadMore from "mint-ui";
+
+interface AuditInf {
+  id: string;
+  icon: string;
+  title: string;
+  status: string;
+}
+
+@Component({
   components: {
     search,
   },
-};
+})
+export default class AuditHistory extends Vue {
+  allLoaded = false;
+  selectedId = "";
+  searchText = "";
+
+  datas: AuditInf[] = [
+    {
+      id: "1",
+      icon: "1",
+      title: "入藏申请1",
+      status: "1",
+    },
+    {
+      id: "2",
+      icon: "2",
+      title: "入藏申请2",
+      status: "1",
+    },
+    {
+      id: "3",
+      icon: "3",
+      title: "入藏申请3",
+      status: "1",
+    },
+    {
+      id: "4",
+      icon: "4",
+      title: "入藏申请4",
+      status: "1",
+    },
+    {
+      id: "5",
+      icon: "5",
+      title: "入藏申请5",
+      status: "1",
+    },
+    {
+      id: "6",
+      icon: "6",
+      title: "入藏申请6",
+      status: "1",
+    },
+    {
+      id: "7",
+      icon: "7",
+      title: "入藏申请7",
+      status: "1",
+    },
+    {
+      id: "8",
+      icon: "8",
+      title: "入藏申请8",
+      status: "1",
+    },
+    {
+      id: "9",
+      icon: "9",
+      title: "入藏申请9",
+      status: "1",
+    },
+    {
+      id: "10",
+      icon: "10",
+      title: "入藏申请10",
+      status: "1",
+    },
+  ];
+
+  $refs!: {
+    loadmore: LoadMore;
+  };
+
+  handleTextChange(data: string): void {
+    console.log(data);
+  }
+
+  loadTop(): void {
+    // TODO
+    setTimeout(() => {
+      this.$refs.loadmore.onTopLoaded();
+    }, 2000);
+  }
+
+  loadMore(): void {
+    this.allLoaded = true;
+    setTimeout(() => {
+      let last = this.datas[this.datas.length - 1];
+      for (let i = 1; i <= 10; i++) {
+        const temp: AuditInf = {
+          id: last.id + i,
+          icon: "1",
+          title: "入藏申请" + i,
+          status: "0",
+        };
+        this.datas.push(temp);
+      }
+      this.allLoaded = false; //this.allLoaded = true; 若数据已全部获取完毕
+      this.$refs.loadmore.onBottomLoaded();
+    }, 2500);
+  }
+
+  handleClick(id: string): void {
+    this.selectedId = id;
+    this.$router.push({ name: "auditDetail", query: { id: id } });
+  }
+}
 </script>
 
 <style lang="scss" scoped>

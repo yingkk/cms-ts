@@ -13,18 +13,25 @@ import "viewerjs/dist/viewer.css";
 import Viewer from "viewerjs";
 
 import { Component, Prop, Vue } from "vue-property-decorator";
+import { PropType } from "vue";
 
 @Component
 export default class ImgCard extends Vue {
+  // @Prop({
+  //   default: () => [
+  //     "https://tse1-mm.cn.bing.net/th?id=OIP.fLI-fIeiAEMZwLhz6KkcMQAAAA&w=201&h=200&c=7&o=5&pid=1.7",
+  //   ],
+  // })
   @Prop({
-    default: () => [
-      "https://tse1-mm.cn.bing.net/th?id=OIP.fLI-fIeiAEMZwLhz6KkcMQAAAA&w=201&h=200&c=7&o=5&pid=1.7",
-    ],
+    type: Array as PropType<string[]>,
+    required: true,
+    default: () => [],
   })
-  imgs: string[] = [];
+  private readonly imgs!: string[];
   viewer!: Viewer;
 
   mounted(): void {
+    console.log(this.imgs);
     this.viewer = new Viewer(document.getElementById("img") as HTMLElement, {
       title: true,
       navbar: false,

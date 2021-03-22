@@ -83,16 +83,16 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import search from "@/components/search.vue";
-import loadmore from "mint-ui"
+import loadmore from "mint-ui";
 
-interface categoriesInf {
+interface CategoryInf {
   name: string;
   id: string;
 }
 
-interface datasInf {
-  id: number;
-  icon: string | number;
+interface DataInf {
+  id: string;
+  icon: string;
   title: string;
 }
 
@@ -106,78 +106,75 @@ export default class List extends Vue {
   allLoaded = false;
   isShowCategory = false;
   selectedId = "";
-  activeCategory: categoriesInf = { id: "", name: "" };
-  datas: Array<datasInf> = [
+  activeCategory!: CategoryInf;
+  datas: DataInf[] = [
     {
-      id: 1,
+      id: "1",
       icon: "1",
       title: "青釉布纹双系壶1",
     },
     {
-      id: 1,
+      id: "2",
       icon: "1",
-      title: "青釉布纹双系壶1",
+      title: "青釉布纹双系壶2",
     },
     {
-      id: 1,
+      id: "3",
       icon: "1",
-      title: "青釉布纹双系壶1",
+      title: "青釉布纹双系壶3",
     },
     {
-      id: 1,
+      id: "4",
       icon: "1",
-      title: "青釉布纹双系壶1",
+      title: "青釉布纹双系壶4",
     },
     {
-      id: 1,
+      id: "5",
       icon: "1",
-      title: "青釉布纹双系壶1",
+      title: "青釉布纹双系壶5",
     },
     {
-      id: 1,
+      id: "6",
       icon: "1",
-      title: "青釉布纹双系壶1",
+      title: "青釉布纹双系壶6",
     },
     {
-      id: 1,
+      id: "7",
       icon: "1",
-      title: "青釉布纹双系壶1",
+      title: "青釉布纹双系壶7",
     },
     {
-      id: 1,
+      id: "8",
       icon: "1",
-      title: "青釉布纹双系壶1",
+      title: "青釉布纹双系壶8",
     },
     {
-      id: 1,
+      id: "9",
       icon: "1",
-      title: "青釉布纹双系壶1",
+      title: "青釉布纹双系壶9",
     },
     {
-      id: 1,
+      id: "10",
       icon: "1",
-      title: "青釉布纹双系壶1",
-    },
-    {
-      id: 1,
-      icon: "1",
-      title: "青釉布纹双系壶1",
-    },
-    {
-      id: 1,
-      icon: "1",
-      title: "青釉布纹双系壶1",
-    },
-    {
-      id: 1,
-      icon: "1",
-      title: "青釉布纹双系壶1",
+      title: "青釉布纹双系壶10",
     },
   ];
-  categories: Array<categoriesInf> = [
+  categories: CategoryInf[] = [
     {
-      id: "9090",
+      id: "001",
       name: "test",
+    },
+    {
+      id: "002",
+      name: "test1",
+    },
+    {
+      id: "003",
+      name: "test2",
+    },
+    {
+      id: "004",
+      name: "test3",
     },
   ];
   $refs!: {
@@ -202,10 +199,11 @@ export default class List extends Vue {
     setTimeout(() => {
       let last = this.datas[this.datas.length - 1];
       for (let i = 1; i <= 10; i++) {
+        const _index = last.id + i;
         this.datas.push({
-          id: last.id + i,
+          id: _index + "",
           icon: last.id + i,
-          title: "青釉布纹双系壶" + (last.id + i),
+          title: "青釉布纹双系壶" + _index,
         });
       }
       this.allLoaded = false; //this.allLoaded = true; 若数据已全部获取完毕
@@ -214,10 +212,11 @@ export default class List extends Vue {
   }
   handleClick(id: string): void {
     this.selectedId = id;
+    console.log(id)
     this.$router.push({ name: "collectionInfo", query: { id: id } });
   }
 
-  handleClickCategoryItem(item: categoriesInf): void {
+  handleClickCategoryItem(item: CategoryInf): void {
     this.activeCategory = item;
     this.isShowCategory = false;
     //TODO beforeRouteUpdate
@@ -225,52 +224,52 @@ export default class List extends Vue {
     //TODO query data by categoryId
     this.datas = [
       {
-        id: 1,
+        id: "1",
         icon: "1",
         title: "青釉1",
       },
       {
-        id: 2,
+        id: "2",
         icon: "2",
         title: "青釉2",
       },
       {
-        id: 3,
+        id: "3",
         icon: "3",
         title: "青釉3",
       },
       {
-        id: 4,
+        id: "4",
         icon: "4",
         title: "青釉4",
       },
       {
-        id: 5,
+        id: "5",
         icon: "5",
         title: "青釉5",
       },
       {
-        id: 6,
+        id: "6",
         icon: "6",
         title: "青釉6",
       },
       {
-        id: 7,
+        id: "7",
         icon: "7",
         title: "青釉7",
       },
       {
-        id: 8,
+        id: "8",
         icon: "8",
         title: "青釉8",
       },
       {
-        id: 9,
+        id: "9",
         icon: "9",
         title: "青釉9",
       },
       {
-        id: 10,
+        id: "10",
         icon: "10",
         title: "青釉10",
       },
@@ -279,15 +278,14 @@ export default class List extends Vue {
   handleShowCategory(): void {
     this.isShowCategory = !this.isShowCategory;
   }
-  handleTextChange(data: string): void {
-    console.log(data);
+  handleTextChange(searchText: string): void {
+    console.log(searchText);
     //TODO query and reset datas
   }
 }
-// };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .list {
   width: 100%;
   height: 100%;
@@ -311,10 +309,6 @@ export default class List extends Vue {
       color: rgb(38, 149, 201);
       flex: none;
     }
-    // .main-wrap {
-    //   height: 100%;
-    //   overflow-y: auto;
-    // }
   }
 }
 </style>
