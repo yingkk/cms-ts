@@ -63,7 +63,7 @@ interface CollectionApply {
 
 @Component({
   components: {
-    search,
+    search
   },
 })
 export default class Audit extends Vue {

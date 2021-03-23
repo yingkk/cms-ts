@@ -30,7 +30,7 @@ export default class ImgCard extends Vue {
     if (!newVal.length) {
       return;
     }
-    this.viewer.update();
+    this.$nextTick(() => this.viewer.update())
   }
 
   mounted(): void {
