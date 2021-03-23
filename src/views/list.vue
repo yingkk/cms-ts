@@ -6,7 +6,7 @@
           <i class="fa fa-bars"></i>
         </div>
       </div>
-      <search @searchText="handleTextChange"></search>
+      <search @searchText="handleSearch"></search>
     </div>
 
     <mt-popup
@@ -211,14 +211,12 @@ export default class List extends Vue {
   }
   handleClick(id: string): void {
     this.selectedId = id;
-    console.log(id)
     this.$router.push({ name: "collectionInfo", query: { id: id } });
   }
 
   handleClickCategoryItem(item: CategoryInf): void {
     this.activeCategory = item;
     this.isShowCategory = false;
-    //TODO beforeRouteUpdate
     this.$router.push({ name: "list", query: { id: item.id } });
     //TODO query data by categoryId
     this.datas = [
@@ -277,7 +275,7 @@ export default class List extends Vue {
   handleShowCategory(): void {
     this.isShowCategory = !this.isShowCategory;
   }
-  handleTextChange(searchText: string): void {
+  handleSearch(searchText: string): void {
     console.log(searchText);
     //TODO query and reset datas
   }

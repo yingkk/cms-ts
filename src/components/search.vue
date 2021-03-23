@@ -6,7 +6,7 @@
         type="text"
         placeholder="搜索"
         class="search-input"
-        @keyup.enter="handleSearchTextChange"
+        @keyup.enter="handleSearch"
       />
     </form>
     <span class="search-prefix">
@@ -32,7 +32,7 @@ export default class Search extends Vue {
   }
 
   @Emit("searchText")
-  handleSearchTextChange(): string {
+  handleSearch(): string {
     return this.searchText;
   }
 

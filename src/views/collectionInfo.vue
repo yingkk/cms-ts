@@ -73,7 +73,7 @@ export default class CollectionInfo extends Vue {
     imageCard: ImageCard;
   };
   selected: DataTypeInf = {};
-  datas: Array<DataTypeInf> = [
+  datas: DataTypeInf[] = [
     {
       id: "1",
       icon: "1",

@@ -1,7 +1,7 @@
 <template>
   <div class="audit">
     <div class="top">
-      <search @searchText="handleTextChange"></search>
+      <search @searchText="handleSearch"></search>
       <div class="audit-history" @click="handleAuditHistory">
         <div class="audit-history-icon">
           <i class="fa fa-info-circle"></i>
@@ -130,7 +130,7 @@ export default class Audit extends Vue {
   created(): void {
     this.code = this.$route.query.code as string;
   }
-  handleTextChange(searchText: string): void {
+  handleSearch(searchText: string): void {
     console.log(searchText);
   }
   loadTop(): void {
